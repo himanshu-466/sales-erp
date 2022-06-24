@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import React, { useState } from "react";
-import { Typography, Button, Divider } from "@mui/material";
+import { Typography, Button, Divider, breadcrumbsClasses } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,7 +11,9 @@ import AddComapnyIcon from "../../Assets/AddCompanyIcon.svg";
 import AddContactIcon from "../../Assets/AddContactIcon.svg";
 import AddProjectIcon from "../../Assets/AddProjectIcon.svg";
 import DeactivateDialog from "../DialogsBoxes/DeactivateDialog";
-import AddandNewDialog from "../DialogsBoxes/AddandNewDialog";
+import AddandEditDialog from "../DialogsBoxes/AddandEditDialog";
+import Add_Ediit_company_dialog from "../DialogsBoxes/Add_Ediit_company_dialog";
+import CompanyDetailDialog from "../DialogsBoxes/CompanyDetailDialog";
 
 const typograpgystyle = {
   fontFamily: "DM Sans",
@@ -41,6 +43,12 @@ const AddNewbutton = () => {
     switch (e.target.id) {
       case "Add Company":
         setModal(1);
+        break;
+      case "Add Contact":
+        setModal(2);
+        break;
+      case "Add Projects":
+        setModal(3);
         break;
     }
   };
@@ -72,7 +80,15 @@ const AddNewbutton = () => {
                     <div style={{ marginLeft: "10px" }} id="Add Company">
                       Add Company
                     </div>
-                    {modal === 1 ? <AddandNewDialog state={setModal} /> : ""}
+                    {modal === 1 ? (
+                      <Add_Ediit_company_dialog
+                        state={setModal}
+                        headingName="Add Company"
+                        buttonName="Add Company"
+                      />
+                    ) : (
+                      ""
+                    )}
                   </MenuItem>
                   <Divider />
                   <MenuItem id="Add Contact">
@@ -80,6 +96,15 @@ const AddNewbutton = () => {
                     <div style={{ marginLeft: "10px" }} id="Add Contact">
                       Add Contact
                     </div>
+                    {modal === 2 ? (
+                      <Add_Ediit_company_dialog
+                        state={setModal}
+                        headingName="Add new contacts"
+                        buttonName="Add Contact"
+                      />
+                    ) : (
+                      ""
+                    )}
                   </MenuItem>
                   <Divider />
                   <MenuItem id="Add Projects">
@@ -87,6 +112,15 @@ const AddNewbutton = () => {
                     <div style={{ marginLeft: "10px" }} id="Add Projects">
                       Add Projects
                     </div>
+                    {modal === 3 ? (
+                      <AddandEditDialog
+                        state={setModal}
+                        headingName="Add new project"
+                        buttonName="Add Project"
+                      />
+                    ) : (
+                      ""
+                    )}
                   </MenuItem>
                 </Menu>
               </React.Fragment>

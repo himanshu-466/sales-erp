@@ -3,7 +3,7 @@ import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
 import { DesignObj } from "./DesignObj";
 import MessageIcon from "../../Assets/MessageIcon.svg";
 import CallIcon from "../../Assets/Callicon.svg";
-import More from "../../Assets/More.svg";
+import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
 
 const ContactView = () => {
   return (
@@ -62,7 +62,7 @@ const ContactView = () => {
           <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
             <Stack direction="row" spacing={10}>
               <div></div>
-              <img src={More} alt="More" />
+              <View_Edit_Deactivate type="Contact" />
             </Stack>
           </Grid>
         </Grid>

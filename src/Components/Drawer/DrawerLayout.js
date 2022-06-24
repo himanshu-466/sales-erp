@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -28,6 +28,7 @@ import AvatarIcon from "../../Assets/Ellipse 1.svg";
 import DownArrow from "../../Assets/DownArrow.svg";
 import AddNewbutton from "../AddNew/AddNewbutton";
 import Tabslayout from "../Tabs/Tabslayout";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 200;
 
@@ -78,6 +79,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function DrawerLayout() {
+  let navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -88,7 +90,12 @@ export default function DrawerLayout() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  useEffect(() => {
+    const data = localStorage.getItem("user-info");
+    if (data == null) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" open={open}>

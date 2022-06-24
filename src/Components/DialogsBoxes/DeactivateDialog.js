@@ -23,7 +23,6 @@ const headingDesign = {
   color: "#283138",
   margin: "0px 100px ",
 };
-const cancelButtonDesign = {};
 
 const DeactivateButtonDesign = {
   flexDirection: " row",
@@ -108,7 +107,9 @@ const DeactivateDialog = (props) => {
         <DialogContent sx={{ margin: "auto" }}>
           <img src={WarningIcon} />
         </DialogContent>
-        <Typography sx={headingDesign}>Deactivate this company ?</Typography>
+        <Typography sx={headingDesign}>
+          Deactivate this {props.headingName} ?
+        </Typography>
         <DialogActions sx={{ width: "100%", justifyContent: "center" }}>
           <Stack direction="row" spacing={2} sx={{ margin: "20px 0" }}>
             <Button

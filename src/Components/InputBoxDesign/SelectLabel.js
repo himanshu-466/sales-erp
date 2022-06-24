@@ -30,12 +30,11 @@ const SelectLabel = () => {
       <label style={labelStyle}>Company</label>
       <Box sx={boxDesign}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={age}
-            label="Age"
+            placeholder="Data"
             onChange={handleChange}
           >
             <MenuItem value={10}>Ten</MenuItem>

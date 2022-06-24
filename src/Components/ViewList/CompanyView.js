@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
 import User from "../../Assets/user.svg";
-import More from "../../Assets/More.svg";
 import Contacts from "../../Assets/Contacts.svg";
 import ProjectPurple from "../../Assets/ProjectPurple.svg";
 import { DesignObj } from "./DesignObj";
+import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
+import { BootstrapTooltip } from "../Accessories/Tooltip";
+import CompanyDetailDialog from "../DialogsBoxes/CompanyDetailDialog";
 
 const CompanyView = () => {
+  const [modal, setModal] = useState(0);
+  const openDialog = () => {
+    console.log(modal);
+    setModal(1);
+  };
   return (
     <>
       <Box sx={DesignObj.boxDesign}>
-        <Grid container rowSpacing={0}>
-          <Grid item xs={2.5}>
+        <Grid container rowSpacing={1}>
+          <Grid item xs={2.5} sx={{ cursor: "pointer" }} onClick={openDialog}>
             <Stack direction="row">
               <Avatar sx={{ bgcolor: "#6B62E2" }}>N</Avatar>
               <Box>
@@ -25,6 +32,7 @@ const CompanyView = () => {
                   India | Gst:3453454
                 </Typography>
               </Box>
+              {modal === 1 ? <CompanyDetailDialog state={setModal} /> : ""}
             </Stack>
           </Grid>
           <Grid item xs={1.5}>
@@ -68,8 +76,13 @@ const CompanyView = () => {
           <Grid item xs={2}></Grid>
           <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
             <Stack direction="row" spacing={10}>
-              <img src={User} alt="user" />
-              <img src={More} alt="More" />
+              <BootstrapTooltip
+                sx={{ width: "110px", textAlign: "center" }}
+                title="Primary Contact : Ankit patil"
+              >
+                <img src={User} alt="user" />
+              </BootstrapTooltip>
+              <View_Edit_Deactivate type="Company" />
             </Stack>
           </Grid>
         </Grid>

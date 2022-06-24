@@ -1,10 +1,10 @@
 import React from "react";
 import { DesignObj } from "./DesignObj";
-import More from "../../Assets/More.svg";
 import Dollar from "../../Assets/Dollar.svg";
 import InProgress from "../../Assets/InProgress.svg";
 import Monthly from "../../Assets/Monthly.svg";
 import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
+import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
 const ProjectList = () => {
   return (
     <>
@@ -80,7 +80,7 @@ const ProjectList = () => {
           <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
             <Stack direction="row" spacing={10}>
               <div></div>
-              <img src={More} alt="More" />
+              <View_Edit_Deactivate type="Projects" />
             </Stack>
           </Grid>
         </Grid>
