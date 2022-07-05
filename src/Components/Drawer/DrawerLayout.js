@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -20,7 +20,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MuiAppBar from "@mui/material/AppBar";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import "./DrawerLayout.css";
 import NotificationsIcon from "../../Assets/notification.svg";
 import ProjectFolderIcon from "../../Assets/projecticon.png";
 import HelpMessage from "../../Assets/message-question.svg";
@@ -29,7 +28,15 @@ import DownArrow from "../../Assets/DownArrow.svg";
 import AddNewbutton from "../AddNew/AddNewbutton";
 import Tabslayout from "../Tabs/Tabslayout";
 import { useNavigate } from "react-router-dom";
-
+import { globalUseStyles } from "../../GlobalCss";
+import ViewDialog from "../DialogsBoxes/ViewDialog";
+import { ChakraProvider } from "@chakra-ui/react";
+import { GetContact } from "../../Redux/Slices/ContactSlice";
+import { GetCompany } from "../../Redux/Slices/CompanySlice";
+import { GetProject } from "../../Redux/Slices/ProjectSlice";
+import { useDispatch } from "react-redux";
+import "../../index.css";
+import { GetFormData } from "../../Redux/Slices/FormDataSlice";
 const drawerWidth = 200;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -80,8 +87,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function DrawerLayout() {
   let navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [searchquery, setSearchquery] = React.useState("");
+  const data = localStorage.getItem("user-info");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -91,19 +102,20 @@ export default function DrawerLayout() {
     setOpen(false);
   };
   useEffect(() => {
-    const data = localStorage.getItem("user-info");
-    if (data == null) {
+    if (data === null || data === "undefined" || data === undefined) {
       navigate("/login");
+    } else {
+      dispatch(GetContact(searchquery));
+      dispatch(GetCompany(searchquery));
+      dispatch(GetProject(searchquery));
+      dispatch(GetFormData());
     }
-  }, []);
+  }, [searchquery]);
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={globalUseStyles.DFLEX}>
       <AppBar position="fixed" open={open}>
-        <Toolbar
-          sx={{
-            backgroundColor: "white",
-          }}
-        >
+        <Toolbar sx={globalUseStyles.BGWhite}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -111,14 +123,14 @@ export default function DrawerLayout() {
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <MenuIcon sx={{ color: "black" }} />
+            <MenuIcon color="primary" />
           </IconButton>
           <Stack
             direction="row"
             spacing={3}
             justifyContent="end"
             alignItems="center"
-            sx={{ width: "100%" }}
+            sx={globalUseStyles.width100}
           >
             <img src={HelpMessage} alt="Support" />
             <Badge badgeContent={4} color="secondary">
@@ -126,17 +138,11 @@ export default function DrawerLayout() {
             </Badge>
 
             <Stack direction="column">
-              <Typography
-                sx={{ color: "black", fontWeight: "bold", fontSize: "15px" }}
-              >
+              <Typography sx={globalUseStyles.Name}>
                 Himanshu Agarwal
               </Typography>
 
-              <Typography
-                sx={{ color: "black", fontSize: "12px", textAlign: "right" }}
-              >
-                Admin
-              </Typography>
+              <Typography sx={globalUseStyles.Admin}>Admin</Typography>
             </Stack>
             <Avatar alt="Profile" src={AvatarIcon} />
             <img src={DownArrow} alt="More" />
@@ -157,10 +163,8 @@ export default function DrawerLayout() {
         open={open}
       >
         <DrawerHeader>
-          <Typography
-            sx={{ textAlign: "center", fontWeight: "900", width: "100%" }}
-          >
-            FLICK<span style={{ color: "#6B62E2" }}>ERP</span>
+          <Typography sx={globalUseStyles.flick}>
+            FLICK<span className="colorPrimary">ERP</span>
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "1tr" ? (
@@ -187,7 +191,7 @@ export default function DrawerLayout() {
       <Main open={open}>
         <DrawerHeader />
         <AddNewbutton />
-        <Tabslayout />
+        <Tabslayout searchvalue={setSearchquery} />
       </Main>
     </Box>
   );

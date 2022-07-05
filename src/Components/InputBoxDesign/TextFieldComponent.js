@@ -1,32 +1,56 @@
-import React from "react";
-import { TextField, Box } from "@mui/material/";
+import React, { useState, useEffect } from "react";
+import { TextField, Box, FormControl } from "@mui/material/";
+import { globalUseStyles } from "../../GlobalCss";
+import { useForm } from "react-hook-form";
+import { margin } from "@mui/system";
+const TextFieldComponent = (props) => {
+  const {
+    register,
+    formState: { errors },
+    trigger,
+  } = useForm();
 
-const labelStyle = {
-  fontFamily: "DM Sans",
-  fontStyle: "normal",
-  fontWeight: "500",
-  fontSize: "14px",
-  lineHeight: "12px",
-  color: "#777E86",
-  margin: "0 10px",
-};
-const boxDesign = {
-  minWidth: 250,
-  margin: "5px 10px",
-  height: "30px",
-};
-const TextFieldComponent = () => {
+  const obj =
+    props.defaultStateARray !== undefined && props.defaultStateARray !== ""
+      ? props.defaultStateARray.reduce((acc, ele) => ele)
+      : "";
+  useEffect(() => {
+    props.formData(obj);
+  }, []);
+  const getData = (e) => {
+    props.formData({ ...props.previousData, [props.fieldkey]: e.target.value });
+  };
   return (
     <>
-      <label style={labelStyle}>Company</label>
-      <Box component="form" sx={boxDesign} autoComplete="off">
-        <TextField
-          id="outlined-basic"
-          placeholder="Data"
-          variant="outlined"
-          sx={{ width: "100%" }}
-        />
-      </Box>
+      <FormControl>
+        <label style={globalUseStyles.CommonlabelStyle}>{props.title}</label>
+        <Box sx={globalUseStyles.CommonboxDesign} autoComplete="off">
+          {props.fieldkey !== "email" ? (
+            <TextField
+              id="outlined-basic"
+              placeholder={props.title}
+              variant="outlined"
+              autoFocus
+              defaultValue={!props.defaultState ? props.defaultState : ""}
+              sx={{ width: "100%" }}
+              onChange={getData}
+            />
+          ) : (
+            <>
+              <TextField
+                type="email"
+                id="outlined-basic"
+                placeholder={props.title}
+                variant="outlined"
+                defaultValue={!props.defaultState ? props.defaultState : ""}
+                autoFocus
+                sx={{ width: "100%" }}
+                onChange={getData}
+              />
+            </>
+          )}
+        </Box>
+      </FormControl>
     </>
   );
 };

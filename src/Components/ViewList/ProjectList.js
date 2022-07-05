@@ -1,86 +1,126 @@
 import React from "react";
-import { DesignObj } from "./DesignObj";
 import Dollar from "../../Assets/Dollar.svg";
 import InProgress from "../../Assets/InProgress.svg";
 import Monthly from "../../Assets/Monthly.svg";
 import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
 import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
-const ProjectList = () => {
+import { globalUseStyles } from "../../GlobalCss";
+import { PROJECT } from "../../Constant/Constant";
+const ProjectList = ({ data }) => {
   return (
     <>
-      <Box sx={DesignObj.boxDesign}>
+      <Box sx={globalUseStyles.boxDesign}>
         <Grid container rowSpacing={0}>
-          <Grid item xs={2}>
+          <Grid item lg={2}>
             <Stack direction="row">
-              <Avatar sx={{ bgcolor: "#6B62E2" }}>N</Avatar>
+              <Avatar sx={globalUseStyles.colorPrimary}>
+                {data.company !== null
+                  ? data.company.name !== "" && data.company.name !== null
+                    ? data.company.name.charAt(0).toUpperCase()
+                    : "?"
+                  : "?"}
+              </Avatar>
               <Box>
-                <Typography sx={DesignObj.typoheadingDesign}>ISpecs</Typography>
+                <Typography sx={globalUseStyles.typoheadingDesign}>
+                  {data.company !== null
+                    ? data.company.name !== "" && data.company.name !== null
+                      ? data.company.name.charAt(0).toUpperCase() +
+                        data.company.name.slice(1)
+                      : "Not Available"
+                    : "Not Available"}
+                </Typography>
                 <Typography
-                  sx={DesignObj.typosubheadingdesign}
-                  style={{ marginLeft: "10px" }}
+                  sx={globalUseStyles.typosubheadingdesign}
+                  style={globalUseStyles.MLTEN}
                 >
-                  Client : Darren
+                  Client :{" "}
+                  {data.client
+                    ? data.client.name !== null && data.client.name !== ""
+                      ? data.client.name
+                      : "Not Available"
+                    : "Not Available"}
                 </Typography>
               </Box>
             </Stack>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item lg={2}>
             <Box>
-              <Typography sx={DesignObj.typosubheadingdesign}>
-                Company
+              <Typography sx={globalUseStyles.typosubheadingdesign}>
+                Developer alloted
               </Typography>
-              <Typography sx={DesignObj.blackheading}>
-                NewVision Technology
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.developer !== null || data.developer !== ""
+                  ? data.developer
+                  : "Not Available"}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item lg={2}>
             <Box>
-              <Typography sx={DesignObj.typosubheadingdesign}>
-                Developer
+              <Typography sx={globalUseStyles.typosubheadingdesign}>
+                Dev name for client
               </Typography>
-              <Typography sx={DesignObj.blackheading}>
-                Himanshu Agrawal
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.developer !== null || data.developer !== ""
+                  ? data.developer
+                  : "Not Available"}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
-              <img src={Dollar} alt="Contacts" />
+              <img src={Dollar} alt="Dollar" />
               <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.blackheading}
+                style={globalUseStyles.FS16}
               >
-                120000:USD
+                {data.cost !== null && data.cost !== ""
+                  ? data.cost
+                  : "Not Available"}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
               <img src={Monthly} alt="Projectimages" />
               <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.blackheading}
+                style={globalUseStyles.FS16}
               >
-                Monthly
+                {data.payment_term !== null || data.payment_term !== ""
+                  ? data.payment_term === 1
+                    ? "Monthly"
+                    : data.payment_term === 2
+                    ? "Weekly"
+                    : "Manually"
+                  : "Not Available"}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
               <img src={InProgress} alt="Projectimages" />
               <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.blackheading}
+                style={globalUseStyles.FS16}
               >
-                In-Progress
+                {data.status !== null && data.status !== ""
+                  ? data.status === 1
+                    ? "Up-coming"
+                    : data.status === 2
+                    ? "In-Progress"
+                    : "Completed"
+                  : "Not Available"}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={10}>
               <div></div>
-              <View_Edit_Deactivate type="Projects" />
+              <View_Edit_Deactivate
+                type={PROJECT}
+                dataID={data.id !== null ? data.id : ""}
+              />
             </Stack>
           </Grid>
         </Grid>

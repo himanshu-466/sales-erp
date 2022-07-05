@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -8,39 +8,28 @@ import { Grid, Stack } from "@mui/material";
 import CompanyView from "../ViewList/CompanyView";
 import ContactView from "../ViewList/ContactView";
 import ProjectList from "../ViewList/ProjectList";
-// import Search from "../../Assets/Seach.svg";
 
-const Tabslayout = () => {
-  const tabdesign = {
-    height: "20px",
-    fontFamily: "DM Sans",
-    fontStyle: "normal",
-    fontWeight: "700",
-    fontSize: "16px",
-    lineHeight: "20px",
-  };
+import { globalUseStyles } from "../../GlobalCss";
+import { Input } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
+import FailureView from "../../FailureView/FailureView";
 
-  const inputBoxStyle = {
-    display: "flex",
-    flexDirection: " row",
-    alignItems: " center",
-    padding: "8px",
-    gap: "8px",
-    width: "340px",
-    height: "32px",
-    background: "#FFFFFF",
-    border: "1px solid #D1D4D7",
-    borderRadius: "4px",
-    flex: "none",
-    order: 1,
-    flexGrow: 0,
-    margin: "20px 0px 2px 20px",
-    outline: 0,
-    // backgroungImage: `${Search}`,
-    // backgroundRepeat: "no-repeat",
-    // backgroundPosition: "left ",
-  };
+const Tabslayout = ({ searchvalue }) => {
   const [value, setValue] = React.useState("1");
+  const ContactViewData = useSelector((state) => state.contact.Value);
+  const CompanyViewData = useSelector((state) => state.company.Value);
+  const ProjectViewData = useSelector((state) => state.project.Value);
+  // Debouncing
+
+  const handleSearch = (e, d) => {
+    let timer;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      searchvalue(e.target.value);
+    }, d);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,39 +48,58 @@ const Tabslayout = () => {
               <TabList
                 onChange={handleChange}
                 aria-label="lab API tabs example"
-                textColor="secondary"
-                indicatorColor="secondary"
+                textColor="primary"
+                indicatorColor="primary"
               >
-                <Tab label="Company" value="1" sx={tabdesign} />
-                <Tab label="Contacts" value="2" sx={tabdesign} />
-                <Tab label="Projects" value="3" sx={tabdesign} />
+                <Tab label="Company" value="1" sx={globalUseStyles.tabdesign} />
+                <Tab
+                  label="Contacts"
+                  value="2"
+                  sx={globalUseStyles.tabdesign}
+                />
+                <Tab
+                  label="Projects"
+                  value="3"
+                  sx={globalUseStyles.tabdesign}
+                />
               </TabList>
             </Grid>
             <Grid item xs={3.5}>
-              <input type="search" style={inputBoxStyle} placeholder="Search" />
+              <Input
+                type="search"
+                placeholder="Search"
+                style={globalUseStyles.inputBoxStyle}
+                onChange={(e, delay) => handleSearch(e, 600)}
+              />
             </Grid>
           </Grid>
         </Box>
         <TabPanel value="1">
-          <CompanyView />
-          <CompanyView />
-          <CompanyView />
-          <CompanyView />
-          <CompanyView />
+          {CompanyViewData.length > 0 ? (
+            CompanyViewData.map((ele, id) => (
+              <CompanyView key={id} data={ele} />
+            ))
+          ) : (
+            <FailureView />
+          )}
         </TabPanel>
         <TabPanel value="2">
-          <ContactView />
-          <ContactView />
-          <ContactView />
-          <ContactView />
-          <ContactView />
+          {ContactViewData.length > 0 ? (
+            ContactViewData.map((ele, id) => {
+              return <ContactView key={id} data={ele} />;
+            })
+          ) : (
+            <FailureView />
+          )}
         </TabPanel>
         <TabPanel value="3">
-          <ProjectList />
-          <ProjectList />
-          <ProjectList />
-          <ProjectList />
-          <ProjectList />
+          {ProjectViewData.length > 0 ? (
+            ProjectViewData.map((ele, id) => (
+              <ProjectList key={id} data={ele} />
+            ))
+          ) : (
+            <FailureView />
+          )}
         </TabPanel>
       </TabContext>
     </Box>

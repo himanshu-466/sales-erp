@@ -1,68 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
-import { DesignObj } from "./DesignObj";
 import MessageIcon from "../../Assets/MessageIcon.svg";
 import CallIcon from "../../Assets/Callicon.svg";
 import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
+import { globalUseStyles } from "../../GlobalCss";
+import { CONTACTVIEW } from "../../Constant/Constant";
 
-const ContactView = () => {
+const ContactView = ({ data }) => {
   return (
     <>
-      <Box sx={DesignObj.boxDesign}>
+      <Box sx={globalUseStyles.boxDesign}>
         <Grid container rowSpacing={0}>
-          <Grid item xs={2.5}>
+          <Grid item lg={2.5}>
             <Stack direction="row">
-              <Avatar sx={{ bgcolor: "#6B62E2" }}>N</Avatar>
+              <Avatar sx={globalUseStyles.colorPrimary}>
+                {data.name !== "" && data.name !== null
+                  ? data.name.charAt(0).toUpperCase()
+                  : "?"}
+              </Avatar>
+
               <Box>
-                <Typography sx={DesignObj.typoheadingDesign}>
-                  Himanshu Agarwal
+                <Typography sx={globalUseStyles.typoheadingDesign}>
+                  {data.name !== "" && data.name !== null
+                    ? data.name.charAt(0).toUpperCase() + data.name.slice(1)
+                    : "Not Available"}
                 </Typography>
                 <Typography
-                  sx={DesignObj.typosubheadingdesign}
-                  style={{ marginLeft: "10px" }}
+                  sx={globalUseStyles.typosubheadingdesign}
+                  style={globalUseStyles.MLTEN}
                 >
-                  India
+                  {data.country !== "" || data.country !== null
+                    ? data.country
+                    : "Not Available"}
                 </Typography>
               </Box>
             </Stack>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item lg={2}>
             <Box>
-              <Typography sx={DesignObj.typosubheadingdesign}>
+              <Typography sx={globalUseStyles.typosubheadingdesign}>
                 Company
               </Typography>
-              <Typography sx={DesignObj.blackheading}>
-                NewVision Technology
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.company !== null ? data.company.name : "Not Available"}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={2} sx={{ marginTop: "10px" }}>
+          <Grid item lg={3} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
               <img src={MessageIcon} alt="Contacts" />
               <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.blackheading}
+                style={globalUseStyles.FS16}
               >
-                info@example.com
+                {data.email !== "" || data.email !== null
+                  ? data.email
+                  : "Not Available"}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={2} sx={{ marginTop: "10px" }}>
+          <Grid item lg={2.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
               <img src={CallIcon} alt="Projectimages" />
               <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.blackheading}
+                style={globalUseStyles.FS16}
               >
-                +91-9482347238
+                {data.mobile !== "" || data.mobile !== null
+                  ? data.mobile
+                  : "Not Available"}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1}></Grid>
+          <Grid item lg={1} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={10}>
               <div></div>
-              <View_Edit_Deactivate type="Contact" />
+              <View_Edit_Deactivate
+                type={CONTACTVIEW}
+                dataID={data.id !== null ? data.id : ""}
+              />
             </Stack>
           </Grid>
         </Grid>

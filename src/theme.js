@@ -6,5 +6,10 @@ const theme = createTheme({
       textTransform: "none",
     },
   },
+  palette: {
+    primary: {
+      main: "#6B62E2",
+    },
+  },
 });
 export { theme };

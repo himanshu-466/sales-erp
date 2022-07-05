@@ -1,46 +1,73 @@
 import React from "react";
-
-const NameCompanyView = () => {
+import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
+import { globalUseStyles } from "../../GlobalCss";
+const NameCompanyView = ({ data, type }) => {
   return (
     <>
-      <Box sx={DesignObj.boxDesign} style={{ border: "none" }}>
+      <Box sx={globalUseStyles.boxDesign} style={{ width: "350px" }}>
         <Grid container rowSpacing={0}>
-          <Grid item xs={4}>
+          <Grid item lg={12}>
             <Stack direction="row">
-              <Avatar sx={{ bgcolor: "#6B62E2" }}>N</Avatar>
-              <Box>
-                <Typography sx={DesignObj.typoheadingDesign}>
-                  NewVision Technology
-                </Typography>
-                <Typography
-                  sx={DesignObj.typosubheadingdesign}
-                  style={{ marginLeft: "10px" }}
-                >
-                  India | Gst:34534543
-                </Typography>
-              </Box>
-            </Stack>
-          </Grid>
-          <Grid item xs={4} sx={{ marginTop: "10px" }}>
-            <Stack direction="row" spacing={1}>
-              <img src={MessageIcon} alt="Contacts" />
-              <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
-              >
-                info@example.com
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid item xs={4} sx={{ marginTop: "10px" }}>
-            <Stack direction="row" spacing={1}>
-              <img src={CallIcon} alt="Projectimages" />
-              <Typography
-                sx={DesignObj.blackheading}
-                style={{ fontSize: "16px" }}
-              >
-                +91-9482347238
-              </Typography>
+              {type === "Contact" ? (
+                <>
+                  <Avatar sx={{ bgcolor: "#6B62E2" }}>
+                    {data !== undefined &&
+                    data.name !== null &&
+                    data.name !== ""
+                      ? data.name.charAt(0).toUpperCase()
+                      : "?"}
+                  </Avatar>
+                  <Box>
+                    <Typography sx={globalUseStyles.typoheadingDesign}>
+                      {(data ?? data.name !== "") && data.name !== null
+                        ? data.name
+                        : "NO Data Found"}
+                    </Typography>
+                    <Typography
+                      sx={globalUseStyles.typosubheadingdesign}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Country |
+                      {data !== undefined &&
+                      data.country !== "" &&
+                      data.country !== null
+                        ? data.country
+                        : "No data found"}
+                    </Typography>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <Avatar sx={{ bgcolor: "#6B62E2" }}>
+                    {data !== undefined &&
+                    data.company !== null &&
+                    data.company !== "" &&
+                    data.company.name !== null
+                      ? data.company.name.charAt(0).toUpperCase()
+                      : "?"}
+                  </Avatar>
+                  <Box>
+                    <Typography sx={globalUseStyles.typoheadingDesign}>
+                      {data !== undefined &&
+                      data.company !== null &&
+                      data.company.name !== null
+                        ? data.company.name
+                        : "NO Data Found"}
+                    </Typography>
+                    <Typography
+                      sx={globalUseStyles.typosubheadingdesign}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Client |
+                      {data !== undefined &&
+                      data.client !== "" &&
+                      data.client !== null
+                        ? data.client.name
+                        : "No data found"}
+                    </Typography>
+                  </Box>
+                </>
+              )}
             </Stack>
           </Grid>
         </Grid>

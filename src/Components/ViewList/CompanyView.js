@@ -1,80 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Box, Stack, Avatar, Typography } from "@mui/material";
 import User from "../../Assets/user.svg";
-import Contacts from "../../Assets/Contacts.svg";
-import ProjectPurple from "../../Assets/ProjectPurple.svg";
-import { DesignObj } from "./DesignObj";
 import View_Edit_Deactivate from "../DialogsBoxes/View_Edit_Deactivate";
 import { BootstrapTooltip } from "../Accessories/Tooltip";
 import CompanyDetailDialog from "../DialogsBoxes/CompanyDetailDialog";
+import { globalUseStyles } from "../../GlobalCss";
+import { COMPANYNAME } from "../../Constant/Constant";
+import ContactProjectDialog from "../DialogsBoxes/ContactProjectDialog";
+const CompanyView = ({ data }) => {
+  const [modal, setModal] = useState(false);
 
-const CompanyView = () => {
-  const [modal, setModal] = useState(0);
-  const openDialog = () => {
-    console.log(modal);
-    setModal(1);
-  };
   return (
     <>
-      <Box sx={DesignObj.boxDesign}>
+      <Box sx={globalUseStyles.boxDesign}>
         <Grid container rowSpacing={1}>
-          <Grid item xs={2.5} sx={{ cursor: "pointer" }} onClick={openDialog}>
-            <Stack direction="row">
-              <Avatar sx={{ bgcolor: "#6B62E2" }}>N</Avatar>
-              <Box>
-                <Typography sx={DesignObj.typoheadingDesign}>
-                  NewVision Technology
-                </Typography>
-                <Typography
-                  sx={DesignObj.typosubheadingdesign}
-                  style={{ marginLeft: "10px" }}
-                >
-                  India | Gst:3453454
-                </Typography>
-              </Box>
-              {modal === 1 ? <CompanyDetailDialog state={setModal} /> : ""}
-            </Stack>
+          <Grid item lg={2.5} sx={{ cursor: "pointer" }}>
+            <CompanyDetailDialog
+              dataID={data.id !== null ? data.id : ""}
+              data={data}
+            />
           </Grid>
-          <Grid item xs={1.5}>
+          <Grid item lg={2.5}>
             <Box>
-              <Typography sx={DesignObj.typosubheadingdesign}>Email</Typography>
-              <Typography sx={DesignObj.blackheading}>
-                Info@gmail.com
+              <Typography sx={globalUseStyles.typosubheadingdesign}>
+                Email
+              </Typography>
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.email !== "" || data.email !== null
+                  ? data.email
+                  : "Not Available"}
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5}>
+          <Grid item lg={1.5}>
             <Box>
-              <Typography sx={DesignObj.typosubheadingdesign}>Phone</Typography>
-              <Typography sx={DesignObj.blackheading}>+91-284234323</Typography>
+              <Typography sx={globalUseStyles.typosubheadingdesign}>
+                Phone
+              </Typography>
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.mobile !== "" || data.mobile !== null
+                  ? data.mobile
+                  : "Not Available"}
+              </Typography>
             </Box>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
-              <img src={Contacts} alt="Contacts" />
+              <ContactProjectDialog
+                companyName={data.name !== undefined ? data.name : ""}
+                type="Contact"
+              />
               <Typography
-                sx={DesignObj.typosubheadingdesign}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.typosubheadingdesign}
+                style={globalUseStyles.FS16}
               >
                 Contacts:
               </Typography>
-              <Typography sx={DesignObj.blackheading}>7564</Typography>
+              <Typography sx={globalUseStyles.blackheading}>
+                {data.get_contacts_count !== "" ||
+                data.get_contacts_count !== null
+                  ? data.get_contacts_count
+                  : 0}
+              </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
-              <img src={ProjectPurple} alt="Projectimages" />
+              <ContactProjectDialog
+                companyName={data.id !== undefined ? data.id : ""}
+                type="Project"
+              />
+
               <Typography
-                sx={DesignObj.typosubheadingdesign}
-                style={{ fontSize: "16px" }}
+                sx={globalUseStyles.typosubheadingdesign}
+                style={globalUseStyles.FS16}
               >
                 Projects:
               </Typography>
-              <Typography sx={DesignObj.blackheading}>7564</Typography>
+              <Typography sx={globalUseStyles.blackheading}>
+                {" "}
+                {data.get_projects_count !== "" ||
+                data.get_projects_count !== null
+                  ? data.get_projects_count
+                  : 0}
+              </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={1.5} sx={{ marginTop: "10px" }}>
+          <Grid item lg={1}></Grid>
+          <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={10}>
               <BootstrapTooltip
                 sx={{ width: "110px", textAlign: "center" }}
@@ -82,7 +95,11 @@ const CompanyView = () => {
               >
                 <img src={User} alt="user" />
               </BootstrapTooltip>
-              <View_Edit_Deactivate type="Company" />
+              <View_Edit_Deactivate
+                type={COMPANYNAME}
+                dataID={data.id !== null ? data.id : ""}
+                data={data}
+              />
             </Stack>
           </Grid>
         </Grid>

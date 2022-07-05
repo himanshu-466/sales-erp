@@ -1,18 +1,328 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: 'DM Sans';
-  -moz-osx-font-smoothing: grayscale;
-  background-color: white;
-  color:""
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+:root {
+  --primary: #6B62E2;
+  --secondary: #4037A7;
+  --dark: #283138;
+  --medium: #777E86;
+  --light: #D5D7D8;
+  --border: #D1D4D7;
+  --success: #65DF5A;
+  --warning: #FEC048;
+  --danger: #FF5858;
+  --info: #5570FD;
+  --white: #FFFFFF;
+  --transition: all 0.2s ease-in-out;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'DM Sans', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 img{
   cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.p8 {
+  padding: 0.8rem;
+}
+
+.p16 {
+  padding: 1.6rem;
+}
+
+.p24 {
+  padding: 2.4rem;
+}
+
+.p32 {
+  padding: 3.2rem;
+}
+
+.pt8 {
+  padding-top: 0.8rem;
+}
+
+.pt16 {
+  padding-top: 1.6rem;
+}
+
+.pt24 {
+  padding-top: 2.4rem;
+}
+
+.pt32 {
+  padding-top: 3.2rem;
+}
+
+.pb8 {
+  padding-bottom: 0.8rem;
+}
+
+.pb16 {
+  padding-bottom: 1.6rem;
+}
+
+.pb24 {
+  padding-bottom: 2.4rem;
+}
+
+.pb32 {
+  padding-bottom: 3.2rem;
+}
+
+.pl8 {
+  padding-left: 0.8rem;
+}
+
+.pl16 {
+  padding-left: 1.6rem;
+}
+
+.pl24 {
+  padding-left: 2.4rem;
+}
+
+.pl32 {
+  padding-left: 3.2rem;
+}
+
+.pr8 {
+  padding-right: 0.8rem;
+}
+
+.pr16 {
+  padding-right: 1.6rem;
+}
+
+.pr24 {
+  padding-right: 2.4rem;
+}
+
+.pr32 {
+  padding-right: 3.2rem;
+}
+
+.m8 {
+  margin: 0.8rem;
+}
+
+.m16 {
+  margin: 1.6rem;
+}
+
+.m24 {
+  margin: 2.4rem;
+}
+
+.m32 {
+  margin: 3.2rem;
+}
+
+.mt8 {
+  margin-top: 0.8rem;
+}
+
+.mt16 {
+  margin-top: 1.6rem;
+}
+
+.mt24 {
+  margin-top: 2.4rem;
+}
+
+.mt32 {
+  margin-top: 3.2rem;
+}
+
+.mb8 {
+  margin-bottom: 0.8rem;
+}
+
+.mb16 {
+  margin-bottom: 1.6rem;
+}
+
+.mb24 {
+  margin-bottom: 2.4rem;
+}
+
+.mb32 {
+  margin-bottom: 3.2rem;
+}
+
+.ml8 {
+  margin-left: 0.8rem;
+}
+
+.ml16 {
+  margin-left: 1.6rem;
+}
+
+.ml24 {
+  margin-left: 2.4rem;
+}
+
+.ml32 {
+  margin-left: 3.2rem;
+}
+
+.mr8 {
+  margin-right: 0.8rem;
+}
+
+.mr16 {
+  margin-right: 1.6rem;
+}
+
+.mr24 {
+  margin-right: 2.4rem;
+}
+
+.mr32 {
+  margin-right: 3.2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+}
+
+.flex_center_between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.thm_border {
+  border: 0.1rem solid var(--border);
+}
+
+.cmn_btn {
+  box-shadow: none;
+  outline: none !important;
+  border-width: 0.1rem !important;
+  border-style: solid !important;
+  border-radius: 0.4rem !important;
+  margin: 0 !important;
+  font-family: 'DM Sans' !important;
+  font-weight: 500 !important;
+  font-size: 1.4rem !important;
+  line-height: 1.8rem !important;
+  padding: 1.6rem 3.2rem !important;
+  gap: 0.8rem !important;
+  height: 5.0rem;
+}
+
+.btn_primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.cmn_iconbtn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.cmn_iconbtn span.MuiButton-startIcon {
+  line-height: 1.6rem;
+  max-height: 1.6rem;
+  margin: 0 !important;
+}
+
+.cmn_iconbtn span.MuiButton-startIcon svg {
+  font-size: 1.6rem !important;
+}
+.colorPrimary {
+  color:var(--primary) !important;
+}
+
+.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm {
+  max-width: 970px !important;
+  min-width: 970px !important;
+}
+
+.inputDesign{
+width: 100%;
+height: 5.6rem;
+border: 0.1rem solid var(--border);
+padding-left: 1.0rem;
+border-radius:0.4rem;
+outline-width: 0rem;
+
+}
+.boxStyle {
+    margin-top: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 1rem ;
+}
+.typographyDesign {
+  font-family: DM Sans !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 3.2rem !important;
+    line-height: 4.0rem !important;
+    color: #283138 !important;
+    align-items: left !important;
+    text-align: left !important;
+}
+
+.labelcss {
+  font-family: DM Sans !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 1.4rem !important;
+    line-height: 1.8rem !important;
+    color: #777E86 !important;
+    margin-top: 1.0rem !important;
+}
+.spancss{
+  color: red;
+  margin: 0.5rem;
+}
+.forgotpassword{
+
 }

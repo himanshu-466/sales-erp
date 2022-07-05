@@ -66,10 +66,10 @@ BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
-const CompanyDetailDialog = ({ dataID, data }) => {
+const CompanyDetailDialog2 = ({ state, dataID }) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-  const [ui, setUi] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [ui, setUi] = React.useState(true);
   const [contactData, setContactData] = React.useState({});
   const [projectData, setProjectData] = React.useState({});
   const companyDataBYID = useSelector((state) => state.company.Value);
@@ -102,34 +102,15 @@ const CompanyDetailDialog = ({ dataID, data }) => {
     }
     fetchcontact();
   };
-  React.useEffect(() => {}, [contactData]);
+  React.useEffect(() => {
+    handleClickOpen();
+  }, []);
   const handleClose = async () => {
     setOpen(false);
+    state(0);
   };
   return (
     <>
-      <Stack direction="row" onClick={handleClickOpen}>
-        <Avatar sx={globalUseStyles.colorPrimary}>
-          {data.name !== null && data.name !== ""
-            ? data.name.charAt(0).toUpperCase()
-            : "?"}
-        </Avatar>
-        <Box>
-          <Typography sx={globalUseStyles.typoheadingDesign}>
-            {data.name !== "" && data.name !== ""
-              ? data.name.charAt(0).toUpperCase() + data.name.slice(1)
-              : "Not Available"}
-          </Typography>
-          <Typography
-            sx={globalUseStyles.typosubheadingdesign}
-            style={globalUseStyles.MLTEN}
-          >
-            {data.country !== "" || data.country !== "" ? data.country : "?"}|
-            Gst:
-            {data.gst !== "" || data.gst !== null ? data.gst : "Not Available"}
-          </Typography>
-        </Box>
-      </Stack>
       {ui ? (
         <div>
           <BootstrapDialog
@@ -210,6 +191,7 @@ const CompanyDetailDialog = ({ dataID, data }) => {
                   <Divider />
                   <AccordionDetails>
                     {Object.keys(contactData) !== 0 &&
+                    contactData.payload !== undefined &&
                     contactData.payload.results.length > 0 ? (
                       contactData.payload.results.map((items, id) => {
                         return (
@@ -253,4 +235,4 @@ const CompanyDetailDialog = ({ dataID, data }) => {
   );
 };
 
-export default CompanyDetailDialog;
+export default CompanyDetailDialog2;
