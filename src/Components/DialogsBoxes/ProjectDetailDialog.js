@@ -66,20 +66,30 @@ BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
-const ProjectDetailDialog = ({ state }) => {
+const ProjectDetailDialog = ({ state, dataID, data }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(true);
   const [ui, setUi] = React.useState(true);
   //   const [contactData, setContactData] = React.useState({});
   //   const [projectData, setProjectData] = React.useState({});
-  //   const companyDataBYID = useSelector((state) => state.company.Value);
-  //   const projectDataBYID = useSelector((state) => state.project.Value);
-  //   const companyFilterData = companyDataBYID.filter((ele) => ele.id === dataID);
-  //   const ProjectFilterData = projectDataBYID.filter((ele) => {
-  //     if (ele.company) {
-  //       return ele.company.id == dataID;
-  //     }
-  //   });
+
+  const projectDataBYID = useSelector((state) => state.project.Value);
+
+  const ProjectFilterData = projectDataBYID.filter((ele) => {
+    return ele.id == dataID;
+  });
+  //   console.log(ProjectFilterData);
+  const obj = ProjectFilterData.reduce((acc, ele) => ele);
+  const keys = Object.keys(obj);
+  const values = Object.values(obj);
+  //   console.log(keys);
+
+  const arr = keys.slice(3, -1);
+  arr.splice(7, 1);
+  console.log(arr);
+
+  //   console.log(values);
+  //   console.log(ProjectFilterData[0].bde.user);
 
   //   const handleClickOpen = () => {
   //     let result;
@@ -187,7 +197,9 @@ const ProjectDetailDialog = ({ state }) => {
             </Box>
           </BootstrapDialogTitle>
           <Divider />
-          <DialogContent></DialogContent>
+          <DialogContent>
+            <Stack direction="row"></Stack>
+          </DialogContent>
         </BootstrapDialog>
       </div>
     </>

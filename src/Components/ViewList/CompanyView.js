@@ -7,6 +7,7 @@ import CompanyDetailDialog from "../DialogsBoxes/CompanyDetailDialog";
 import { globalUseStyles } from "../../GlobalCss";
 import { COMPANYNAME } from "../../Constant/Constant";
 import ContactProjectDialog from "../DialogsBoxes/ContactProjectDialog";
+import RightDrawer from "../Drawer/RightDrawer";
 const CompanyView = ({ data }) => {
   const [modal, setModal] = useState(false);
 
@@ -46,7 +47,7 @@ const CompanyView = ({ data }) => {
           </Grid>
           <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
-              <ContactProjectDialog
+              <RightDrawer
                 companyName={data.name !== undefined ? data.name : ""}
                 type="Contact"
               />
@@ -66,7 +67,7 @@ const CompanyView = ({ data }) => {
           </Grid>
           <Grid item lg={1.5} sx={globalUseStyles.MT10}>
             <Stack direction="row" spacing={1}>
-              <ContactProjectDialog
+              <RightDrawer
                 companyName={data.id !== undefined ? data.id : ""}
                 type="Project"
               />

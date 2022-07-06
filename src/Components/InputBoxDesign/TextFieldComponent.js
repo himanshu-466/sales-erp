@@ -31,7 +31,11 @@ const TextFieldComponent = (props) => {
               placeholder={props.title}
               variant="outlined"
               autoFocus
-              defaultValue={!props.defaultState ? props.defaultState : ""}
+              defaultValue={
+                props.defaultState !== undefined
+                  ? props.defaultState
+                  : "Not Available"
+              }
               sx={{ width: "100%" }}
               onChange={getData}
             />
@@ -42,7 +46,9 @@ const TextFieldComponent = (props) => {
                 id="outlined-basic"
                 placeholder={props.title}
                 variant="outlined"
-                defaultValue={!props.defaultState ? props.defaultState : ""}
+                defaultValue={
+                  props.defaultState !== undefined ? props.defaultState : ""
+                }
                 autoFocus
                 sx={{ width: "100%" }}
                 onChange={getData}

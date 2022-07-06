@@ -75,7 +75,11 @@ const View_Edit_Deactivate = ({ type, dataID, data }) => {
                 type="ViewCompany"
               />
             ) : type === PROJECT && modal === 1 ? (
-              <ProjectDetailDialog state={setModal} />
+              <ProjectDetailDialog
+                state={setModal}
+                dataID={dataID}
+                data={data}
+              />
             ) : (
               ""
             )}
